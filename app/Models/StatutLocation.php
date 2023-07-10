@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TypeArticle extends Model
+class StatutLocation extends Model
 {
-    protected $table = "type_articles";
+    protected $table = "statut_locations";
     use HasFactory;
-    public function articles()
+    public function locations()
     {
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Location::class);
     }
 }

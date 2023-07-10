@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeArticleSeeder::class);
         Article::factory(50)->create();
         Client::factory(50)->create();
+        User::factory(5)->create();
+
         $this->call(DureeLocationSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(StatutLocationSeeder::class);
