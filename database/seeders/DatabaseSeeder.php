@@ -20,11 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeArticleSeeder::class);
         Article::factory(50)->create();
         Client::factory(50)->create();
-        User::factory(5)->create();
+        User::factory(10)->create();
 
         $this->call(DureeLocationSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(StatutLocationSeeder::class);
         $this->call(RoleSeeder::class);
+
+        User::find(1)->roles()->attach(1);
+        User::find(2)->roles()->attach(2);
+        User::find(3)->roles()->attach(3);
+        User::find(4)->roles()->attach(4);
     }
 }

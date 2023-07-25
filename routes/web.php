@@ -2,7 +2,10 @@
 
 use App\Models\Article;
 use App\Models\TypeArticle;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Livewire\Utilisateurs;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/articles', function () {
     return Article::with("type")->paginate(10);
 });
@@ -29,4 +28,36 @@ Route::get('/type', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(
+    [
+        "middleware" => ["auth", "auth.admin"],
+        'as' => 'admin.'
+    ],
+    function () {
+
+        Route::group([
+            "prefix" => "habilitations",
+            'as' => 'habilitations.'
+        ], function () {
+
+            Route::get("/utilisateurs", Utilisateurs::class, "index")->name("users.index");
+            //Route::get("/rolesetpermissions", [UserController::class, "index"])->name("rolespermissions.index");
+            //
+
+        });
+        //     Route::group([
+        //         "prefix" => "gestarticles",
+        //         'as' => 'gestarticles.'
+        //     ], function () {
+
+        //         Route::get("/types", TypeArticleComp::class)->name("types");
+        //         Route::get("/articles", ArticleComp::class)->name("articles");
+        //         Route::get("/articles/{articleId}/tarifs", TarifComp::class)->name("articles.tarifs");
+        //     });
+    }
+);
+
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

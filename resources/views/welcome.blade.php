@@ -1,5 +1,5 @@
 @extends("layouts.master")
 
-@section('contenu')
+@section('content')
     <livewire:counter />
 @endsection
